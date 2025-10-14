@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
 } from "./ui/navigation-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Landmark } from "lucide-react";
+import { BugOff } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar.tsx";
 import type { NavigationLink } from "../features/auth/types/types.ts";
@@ -93,7 +93,7 @@ export const Navigation = () => {
           {/* Main nav */}
           <div className="flex items-center gap-6">
             <Link to="/" className="text-primary hover:text-primary/90">
-              <Landmark />
+              <BugOff />
             </Link>
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
