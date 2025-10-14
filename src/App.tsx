@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
 import { NavigationGuard } from "./features/auth/components/NavigationGuard.tsx";
 import RbacDashboard from "./features/auth/components/RbacDashboard.tsx";
 import RbacLoginForm from "./features/auth/components/RbacLoginForm.tsx";
@@ -15,7 +15,8 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<RbacLoginForm />} />
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
 
         <Route path="/" element={<HomePage />} />
 
