@@ -5,6 +5,8 @@ import RbacLoginForm from "./features/auth/components/RbacLoginForm.tsx";
 import { NotFound } from "./pages/not-found.tsx";
 import HomePage from "./pages/public-pages/Home.tsx";
 import { Navigation } from "./components/Navbar.tsx";
+import TestPage from "./pages/private-pages/TestPage.tsx";
+import { Unauthorized } from "./pages/un-authorized.tsx";
 
 const App = () => {
   return (
@@ -23,6 +25,16 @@ const App = () => {
           element={
             <NavigationGuard requiredPermission="view_accounts">
               <RbacDashboard />
+            </NavigationGuard>
+          }
+        />
+
+        {/* test/admin routes */}
+        <Route
+          path="/test-page"
+          element={
+            <NavigationGuard requiredRole={"admin"}>
+              <TestPage />
             </NavigationGuard>
           }
         />
@@ -56,7 +68,7 @@ const App = () => {
         {/*  }*/}
         {/*/>*/}
 
-        {/*<Route path="/unauthorized" element={<Unauthorized />} />*/}
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </Router>
   );

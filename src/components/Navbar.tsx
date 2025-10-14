@@ -25,6 +25,9 @@ export const Navigation = () => {
   const { user, isAuthenticated, logout } = useRbacAuthStore();
   const location = useLocation();
 
+  const isErrorPages =
+    location.pathname === "/not-found" || location.pathname === "/unauthorized";
+
   const navigationLinks = isAuthenticated
     ? navigationLinksProtected
     : navigationLinksBase;
@@ -116,7 +119,7 @@ export const Navigation = () => {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {isAuthenticated ? (
+          {isAuthenticated && !isErrorPages ? (
             <div className="flex items-center gap-2">
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
@@ -133,12 +136,16 @@ export const Navigation = () => {
             </div>
           ) : (
             <>
-              <Button asChild variant="ghost" size="sm" className="text-sm">
-                <Link to="/login">Sign In</Link>
-              </Button>
-              <Button asChild size="sm" className="text-sm">
-                <Link to="/signup">Get Started</Link>
-              </Button>
+              {!isErrorPages ? (
+                <>
+                  <Button asChild variant="ghost" size="sm" className="text-sm">
+                    <Link to="/login">Sign In</Link>
+                  </Button>
+                  <Button asChild size="sm" className="text-sm">
+                    <Link to="/signup">Get Started</Link>
+                  </Button>
+                </>
+              ) : null}
             </>
           )}
           <ModeToggle />
