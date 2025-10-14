@@ -1,0 +1,142 @@
+// data/demo-user-data.ts
+import type { User, UserRole, Permission } from "../types/types.ts";
+
+export const demoUsers: User[] = [
+  {
+    id: "1",
+    username: "john",
+    firstName: "John",
+    lastName: "Doe",
+    email: "john@bank.com",
+    role: "customer",
+    permissions: [
+      "view_accounts",
+      "view_transactions",
+      "create_transactions",
+      "manage_transfers",
+    ],
+    accountType: "premium",
+    isActive: true,
+  },
+  {
+    id: "2",
+    username: "jane",
+    firstName: "Jane",
+    lastName: "Smith",
+    email: "jane@bank.com",
+    role: "customer",
+    permissions: [
+      "view_accounts",
+      "view_transactions",
+      "create_transactions",
+      "manage_transfers",
+    ],
+    accountType: "checking",
+    isActive: true,
+  },
+  {
+    id: "3",
+    username: "teller",
+    firstName: "Mike",
+    lastName: "Johnson",
+    email: "mike@bank.com",
+    role: "teller",
+    permissions: [
+      "view_accounts",
+      "view_transactions",
+      "create_transactions",
+      "manage_transfers",
+      "approve_transactions",
+    ],
+    accountType: "business",
+    isActive: true,
+  },
+  {
+    id: "4",
+    username: "manager",
+    firstName: "Sarah",
+    lastName: "Wilson",
+    email: "sarah@bank.com",
+    role: "manager",
+    permissions: [
+      "view_accounts",
+      "view_transactions",
+      "create_transactions",
+      "manage_transfers",
+      "approve_transactions",
+      "view_analytics",
+      "manage_accounts",
+    ],
+    accountType: "business",
+    isActive: true,
+  },
+  {
+    id: "5",
+    username: "admin",
+    firstName: "Admin",
+    lastName: "User",
+    email: "admin@bank.com",
+    role: "admin",
+    permissions: [
+      "view_accounts",
+      "view_transactions",
+      "create_transactions",
+      "manage_transfers",
+      "approve_transactions",
+      "view_analytics",
+      "manage_users",
+      "manage_accounts",
+      "view_audit_logs",
+      "system_config",
+    ],
+    accountType: "business",
+    isActive: true,
+  },
+];
+
+export const DEMO_CREDENTIALS = {
+  john: "password123",
+  jane: "bank123",
+  teller: "teller123",
+  manager: "manager123",
+  admin: "admin123",
+};
+
+export const rolePermissions: Record<UserRole, Permission[]> = {
+  customer: [
+    "view_accounts",
+    "view_transactions",
+    "create_transactions",
+    "manage_transfers",
+  ],
+  teller: [
+    "view_accounts",
+    "view_transactions",
+    "create_transactions",
+    "manage_transfers",
+    "approve_transactions",
+  ],
+  manager: [
+    "view_accounts",
+    "view_transactions",
+    "create_transactions",
+    "manage_transfers",
+    "approve_transactions",
+    "view_analytics",
+    "manage_accounts",
+  ],
+  admin: [
+    "view_accounts",
+    "view_transactions",
+    "create_transactions",
+    "manage_transfers",
+    "approve_transactions",
+    "view_analytics",
+    "manage_users",
+    "manage_accounts",
+    "view_audit_logs",
+    "system_config",
+  ],
+};
+
+export type CredentialType = typeof DEMO_CREDENTIALS;
