@@ -102,6 +102,8 @@ export const DEMO_CREDENTIALS = {
   admin: "admin123",
 };
 
+export type CredentialType = typeof DEMO_CREDENTIALS;
+
 export const rolePermissions: Record<UserRole, Permission[]> = {
   customer: [
     "view_accounts",
@@ -138,5 +140,3 @@ export const rolePermissions: Record<UserRole, Permission[]> = {
     "system_config",
   ],
 };
-
-export type CredentialType = typeof DEMO_CREDENTIALS;

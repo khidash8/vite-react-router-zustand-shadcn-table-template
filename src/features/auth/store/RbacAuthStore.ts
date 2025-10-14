@@ -81,7 +81,7 @@ export const useRbacAuthStore = create<AuthState>()(
         user: state.user,
         isAuthenticated: state.isAuthenticated,
       }),
-      version: 2, // Incremented for new schema
+      version: 1,
     },
   ),
 );
@@ -89,7 +89,7 @@ export const useRbacAuthStore = create<AuthState>()(
 // Audit logging function
 const logAuditEvent = (userId: string, action: string, details: string) => {
   const auditLog: AuditLog = {
-    id: Math.random().toString(36).substr(2, 9),
+    id: crypto.randomUUID(),
     timestamp: new Date().toISOString(),
     userId,
     action,
