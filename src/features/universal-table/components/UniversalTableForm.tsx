@@ -130,6 +130,18 @@ export function UniversalTableForm<T extends BaseEntity>({
           />
         );
 
+      case "number":
+        return (
+          <Input
+            type="number"
+            {...commonProps}
+            onChange={(e) => {
+              const value = e.target.value === "" ? "" : Number(e.target.value);
+              commonProps.onChange(value);
+            }}
+          />
+        );
+
       default:
         return (
           <Input

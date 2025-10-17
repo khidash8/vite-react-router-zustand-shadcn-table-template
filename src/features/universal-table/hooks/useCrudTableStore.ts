@@ -1,10 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import type { BaseEntity, CrudState } from "../types/table-types.ts";
+
+interface CreateStoreOptions {
+  persist?: boolean;
+  storageKey?: string;
+}
 
 export function createCrudTableStore<T extends BaseEntity>(
   initialData: T[] = [],
+  options?: CreateStoreOptions,
 ) {
-  return create<CrudState<T>>((set, get) => ({
+  const { persist: enablePersist = false, storageKey = "crud-store" } =
+    options || {};
+
+  const storeConfig = (set: any, get: any) => ({
     data: initialData,
 
     addItem: (itemData: Omit<T, "id">) => {
@@ -13,13 +24,13 @@ export function createCrudTableStore<T extends BaseEntity>(
         id: crypto.randomUUID(),
       } as T;
 
-      set((state) => ({
+      set((state: CrudState<T>) => ({
         data: [newItem, ...state.data],
       }));
     },
 
     updateItem: (id: string, updatedData: Partial<T>) => {
-      set((state) => ({
+      set((state: CrudState<T>) => ({
         data: state.data.map((item) =>
           item.id === id ? { ...item, ...updatedData } : item,
         ),
@@ -27,13 +38,24 @@ export function createCrudTableStore<T extends BaseEntity>(
     },
 
     deleteItem: (id: string) => {
-      set((state) => ({
+      set((state: CrudState<T>) => ({
         data: state.data.filter((item) => item.id !== id),
       }));
     },
 
     getItem: (id: string) => {
-      return get().data.find((item) => item.id === id);
+      return get().data.find((item: T) => item.id === id);
     },
-  }));
+  });
+
+  if (enablePersist) {
+    return create<CrudState<T>>()(
+      persist(storeConfig, {
+        name: storageKey,
+        storage: createJSONStorage(() => localStorage),
+      }),
+    );
+  }
+
+  return create<CrudState<T>>(storeConfig);
 }

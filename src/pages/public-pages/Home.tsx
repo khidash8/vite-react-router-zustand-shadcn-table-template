@@ -8,7 +8,7 @@ const HomePage = () => {
   const { isAuthenticated } = useRbacAuthStore();
 
   return (
-    <div className="p-4 text-center">
+    <div className="p-4 text-center h-[calc(100vh-64px)] flex flex-col items-center justify-center">
       <div className="flex flex-col space-y-8 items-center justify-center">
         <BugOff size={100} />
 
